@@ -19,6 +19,11 @@ public class ManufacturerService {
         this.manufacturerRepository = manufacturerRepository;
     }
 
+    public void testMethod() {
+        System.out.println("Entering transaction now!");
+        System.out.println("Exiting transaction now!");
+    }
+
     public List<Manufacturer> findAll() {
         return manufacturerRepository.findAll();
     }

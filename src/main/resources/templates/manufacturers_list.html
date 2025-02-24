@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manufacturers</title>
+</head>
+<body>
+<h1>Music Shop</h1>
+<p><a th:href="@{/}">Welcome to Music Shop</a></p>
+<hr>
+<p th:each="el: ${list}">
+    <span th:text="${el.getId()}">manufacturer id</span>.
+    <span th:text="${el.getName()}">manufacturer name</span>
+</p>
+</body>
+</html>
