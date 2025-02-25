@@ -4,35 +4,36 @@
     <meta charset="UTF-8">
     <title>Product type form</title>
 </head>
-<body>
+<body th:with="
+    method=(${isNew} ? 'post' : 'patch'),
+    actionCreate='/product_types',
+    actionUpdate=('/product_types/' + ${productType.id}),
+    actionUrl=(${isNew} ? ${actionCreate} : ${actionUpdate})
+">
 <h1>Music Shop</h1>
 <p><a th:href="@{/}">Welcome to Music Shop</a></p>
 <hr>
-<h2 th:text="${productType.getName == null} ? 'New product type' : ${productType.getName}">
+<h2 th:text="${isNew} ? 'New product type' : ${productType.name}">
     Product type name
 </h2>
-<th th:with="
-type=${productType.getName == null} ? 'create' : 'update',
-actionCreate='/product_types',
-actionUpdate=('/product_types/' + ${productType.getId}),
-actionUrl=(${type == 'create'} ? ${actionCreate} : ${actionUpdate}),
-method=(${type == 'create'} ? 'post' : 'patch')
-">
-    <form action="#"
-          th:action="@{${actionUrl}}"
-          th:object="${productType}"
-          method="post"
-          th:method="@{${method}}">
-        <p>
-            <label for="name">Name:</label>
-            <input type="text" id="name" th:field="*{name}">
-        </p>
-        <p>
-            <label for="description">Description:</label>
-            <textarea id="description" th:field="*{description}" th:text="${productType.getDescription}"></textarea>
-        </p>
-        <input type="submit" value="Submit">
-    </form>
-</th>
+<form action="#"
+      th:action="@{${actionUrl}}"
+      th:object="${productType}"
+      method="post"
+      th:method="@{${method}}">
+    <p>
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}">
+        <br><label for="name" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                   style="color:red">Errors</label>
+    </p>
+    <p>
+        <label for="description">Description:</label>
+        <textarea id="description" th:field="*{description}" th:text="${productType.getDescription}"></textarea>
+        <br><label for="description" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                   style="color:red">Errors</label>
+    </p>
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>

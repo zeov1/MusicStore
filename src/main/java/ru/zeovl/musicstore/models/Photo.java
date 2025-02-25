@@ -1,6 +1,8 @@
 package ru.zeovl.musicstore.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
@@ -13,9 +15,12 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
+    @Size(min = 3, max = 80)
     @Column(name = "image_name")
     private String imageName;
 
+    @NotNull
     @Column(name = "created_at")
     @CreationTimestamp
     private Date createdAt;

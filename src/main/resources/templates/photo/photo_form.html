@@ -4,31 +4,30 @@
     <meta charset="UTF-8">
     <title>Photo form</title>
 </head>
-<body>
+<body th:with="
+    method=(${isNew} ? 'post' : 'patch'),
+    actionCreate='/photos',
+    actionUpdate=('/photos/' + ${photo.id}),
+    actionUrl=(${isNew} ? ${actionCreate} : ${actionUpdate})
+">
 <h1>Music Shop</h1>
 <p><a th:href="@{/}">Welcome to Music Shop</a></p>
 <hr>
-<h2 th:text="${photo.getImageName == null} ? 'New photo' : ${photo.getImageName}">
+<h2 th:text="${isNew} ? 'New photo' : ${photo.imageName}">
     Photo name
 </h2>
-<th th:with="
-type=${photo.getImageName == null} ? 'create' : 'update',
-actionCreate='/photos',
-actionUpdate=('/photos/' + ${photo.getId}),
-actionUrl=(${type == 'create'} ? ${actionCreate} : ${actionUpdate}),
-method=(${type == 'create'} ? 'post' : 'patch')
-">
-    <form action="#"
-          th:action="@{${actionUrl}}"
-          th:object="${photo}"
-          method="post"
-          th:method="@{${method}}">
-        <p>
-            <label for="name">Name:</label>
-            <input type="text" id="name" th:field="*{imageName}">
-        </p>
-        <input type="submit" value="Submit">
-    </form>
-</th>
+<form action="#"
+      th:action="@{${actionUrl}}"
+      th:object="${photo}"
+      method="post"
+      th:method="@{${method}}">
+    <p>
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{imageName}">
+        <br><label for="name" th:if="${#fields.hasErrors('imageName')}" th:errors="*{imageName}" style="color:red">Errors</label>
+    </p>
+    <input type="submit" value="Submit">
+</form>
+
 </body>
 </html>

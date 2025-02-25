@@ -1,10 +1,11 @@
 package ru.zeovl.musicstore.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.zeovl.musicstore.models.Photo;
 import ru.zeovl.musicstore.models.Product;
 import ru.zeovl.musicstore.models.ProductType;
 import ru.zeovl.musicstore.services.ProductService;
@@ -25,18 +26,31 @@ public class ProductTypeController {
         this.productService = productService;
     }
 
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CREATE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     @GetMapping("/new")
     String newProductType(Model model) {
         ProductType productType = new ProductType();
         model.addAttribute("productType", productType);
+        model.addAttribute("isNew", true);
         return "product_type/product_type_form";
     }
 
     @PostMapping("")
-    String createProductType(@ModelAttribute ProductType productType) {
+    String createProductType(@ModelAttribute @Valid ProductType productType, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("isNew", true);
+            return "product_type/product_type_form";
+        }
         productTypeService.save(productType);
         return "redirect:/product_types";
     }
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ READ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     @GetMapping("")
     String getProductTypesList(Model model) {
@@ -53,6 +67,10 @@ public class ProductTypeController {
         return "product_type/product_type_detail";
     }
 
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ UPDATE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     @GetMapping("/{id}/edit")
     String editProductType(@PathVariable int id, Model model) {
         ProductType productType = productTypeService.findById(id);
@@ -61,10 +79,17 @@ public class ProductTypeController {
     }
 
     @PatchMapping("/{id}")
-    String updateProductType(@PathVariable int id, ProductType productType) {
+    String updateProductType(@PathVariable int id, @ModelAttribute @Valid ProductType productType, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "product_type/product_type_form";
+        }
         productTypeService.update(id, productType);
         return "redirect:/product_types";
     }
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DELETE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     @GetMapping("/{id}/delete")
     String confirmDeletingProductTypeById(@PathVariable int id, Model model) {

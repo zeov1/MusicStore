@@ -4,31 +4,30 @@
     <meta charset="UTF-8">
     <title>Manufacturer form</title>
 </head>
-<body>
+<body th:with="
+    method=(${isNew} ? 'post' : 'patch'),
+    actionCreate='/manufacturers',
+    actionUpdate=('/manufacturers/' + ${manufacturer.id}),
+    actionUrl=(${isNew} ? ${actionCreate} : ${actionUpdate})
+">
 <h1>Music Shop</h1>
 <p><a th:href="@{/}">Welcome to Music Shop</a></p>
 <hr>
-<h2 th:text="${manufacturer.getName == null} ? 'New manufacturer' : ${manufacturer.getName}">
+
+<h2 th:text="${isNew} ? 'New manufacturer' : ${manufacturer.name}">
     Manufacturer name
 </h2>
-<th th:with="
-type=${manufacturer.getName == null} ? 'create' : 'update',
-actionCreate='/manufacturers',
-actionUpdate=('/manufacturers/' + ${manufacturer.getId}),
-actionUrl=(${type == 'create'} ? ${actionCreate} : ${actionUpdate}),
-method=(${type == 'create'} ? 'post' : 'patch')
-">
-    <form action="#"
-          th:action="@{${actionUrl}}"
-          th:object="${manufacturer}"
-          method="post"
-          th:method="@{${method}}">
-        <p>
-            <label for="name">Name:</label>
-            <input type="text" id="name" th:field="*{name}">
-        </p>
-        <input type="submit" value="Submit">
-    </form>
-</th>
+<form action="#"
+      th:action="@{${actionUrl}}"
+      th:object="${manufacturer}"
+      method="post"
+      th:method="@{${method}}">
+    <p>
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}">
+        <br><label for="name" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red">Errors</label>
+    </p>
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>

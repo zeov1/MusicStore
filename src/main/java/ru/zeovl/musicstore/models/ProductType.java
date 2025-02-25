@@ -1,6 +1,8 @@
 package ru.zeovl.musicstore.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -11,9 +13,13 @@ public class ProductType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
+    @Size(min = 2, max = 50)
     @Column(name = "name")
     private String name;
 
+    @NotNull
+    @Size(max = 2000)
     @Column(name = "description")
     private String description;
 

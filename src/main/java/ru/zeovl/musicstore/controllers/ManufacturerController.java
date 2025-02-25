@@ -1,8 +1,10 @@
 package ru.zeovl.musicstore.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.zeovl.musicstore.models.Manufacturer;
 import ru.zeovl.musicstore.models.Product;
@@ -24,23 +26,31 @@ public class ManufacturerController {
         this.productService = productService;
     }
 
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CREATE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    @GetMapping("/new")
+    String newManufacturer(Model model) {
+        Manufacturer manufacturer = new Manufacturer();
+        model.addAttribute("manufacturer", manufacturer);
+        model.addAttribute("isNew", true);
+        return "manufacturer/manufacturer_form";
+    }
+
     @PostMapping("")
-    String persistManufacturer(Manufacturer manufacturer) {
+    String createManufacturer(@ModelAttribute @Valid Manufacturer manufacturer, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("isNew", true);
+            return "manufacturer/manufacturer_form";
+        }
         manufacturerService.save(manufacturer);
         return "redirect:/manufacturers";
     }
 
-    @PatchMapping("/{id}")
-    String updateManufacturer(@PathVariable int id, Manufacturer manufacturer) {
-        manufacturerService.update(id, manufacturer);
-        return "redirect:/manufacturers";
-    }
-
-    @DeleteMapping("/{id}")
-    String deleteManufacturer(@PathVariable int id) {
-        manufacturerService.deleteById(id);
-        return "redirect:/manufacturers";
-    }
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ READ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     @GetMapping("")
     String getManufacturersList(Model model) {
@@ -57,12 +67,9 @@ public class ManufacturerController {
         return "manufacturer/manufacturer_detail";
     }
 
-    @GetMapping("/new")
-    String newManufacturer(Model model) {
-        Manufacturer manufacturer = new Manufacturer();
-        model.addAttribute("manufacturer", manufacturer);
-        return "manufacturer/manufacturer_form";
-    }
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ UPDATE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     @GetMapping("/{id}/edit")
     String editManufacturer(@PathVariable int id, Model model) {
@@ -71,10 +78,29 @@ public class ManufacturerController {
         return "manufacturer/manufacturer_form";
     }
 
+    @PatchMapping("/{id}")
+    String updateManufacturer(@PathVariable int id, @ModelAttribute @Valid Manufacturer manufacturer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "manufacturer/manufacturer_form";
+        }
+        manufacturerService.update(id, manufacturer);
+        return "redirect:/manufacturers";
+    }
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DELETE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     @GetMapping("/{id}/delete")
     String confirmDeletingManufacturer(@PathVariable int id, Model model) {
         Manufacturer manufacturer = manufacturerService.findById(id);
         model.addAttribute("manufacturer", manufacturer);
         return "manufacturer/manufacturer_delete_confirmation";
+    }
+
+    @DeleteMapping("/{id}")
+    String deleteManufacturer(@PathVariable int id) {
+        manufacturerService.deleteById(id);
+        return "redirect:/manufacturers";
     }
 }
