@@ -34,6 +34,7 @@ public class Photo {
     }
 
     public Photo() {
+        this.createdAt = new Date();
     }
 
     public int getId() {

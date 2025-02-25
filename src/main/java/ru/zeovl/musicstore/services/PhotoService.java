@@ -7,6 +7,7 @@ import ru.zeovl.musicstore.models.Photo;
 import ru.zeovl.musicstore.models.Product;
 import ru.zeovl.musicstore.repositories.PhotoRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +51,7 @@ public class PhotoService {
 
     @Transactional
     public void update(int id, Photo photo) {
-        photo.setId(id);
-        photoRepository.save(photo);
+        Photo photoToBeUpdated = photoRepository.findById(id).orElse(new Photo());
+        photoToBeUpdated.setImageName(photo.getImageName());
     }
 }
