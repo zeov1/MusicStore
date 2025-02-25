@@ -42,4 +42,15 @@ public class PhotoService {
     public List<Photo> getByProductsContaining(Product product) {
         return photoRepository.getByProductsContaining(product);
     }
+
+    @Transactional
+    public void deleteById(int id) {
+        photoRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void update(int id, Photo photo) {
+        photo.setId(id);
+        photoRepository.save(photo);
+    }
 }

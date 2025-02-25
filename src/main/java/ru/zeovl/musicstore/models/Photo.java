@@ -1,6 +1,7 @@
 package ru.zeovl.musicstore.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Photo {
     private String imageName;
 
     @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date createdAt;
 
     @ManyToMany
@@ -29,6 +30,7 @@ public class Photo {
 
     public Photo(String imageName) {
         this.imageName = imageName;
+        this.createdAt = new Date();
     }
 
     public Photo() {

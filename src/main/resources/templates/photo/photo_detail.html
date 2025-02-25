@@ -6,8 +6,14 @@
 </head>
 <body>
 <h1>Music Shop</h1>
-<p><a th:href="@{/static}">Welcome to Music Shop</a></p>
+<p><a th:href="@{/}">Welcome to Music Shop</a></p>
 <hr>
+<h2 th:text="|Details of ${photo.getImageName}|">Details</h2>
+<div>
+    <p th:text="|ID: ${photo.getId}|"></p>
+    <p th:text="|Image name: ${photo.getImageName}|"></p>
+    <p th:text="|Created at: ${photo.getCreatedAt.toGMTString}|"></p>
+</div>
 <h2 th:text="|Products related with photo ${photo.getImageName}|">Related products</h2>
 <p th:each="product: ${products}">
     <a th:href="@{|/products/${product.getId}|}">
@@ -15,5 +21,8 @@
         <span th:text="${product.getName}">product name</span>
     </a>
 </p>
+<hr>
+<p><a th:href="@{|/photos/${photo.getId}/edit|}">Edit photo</a></p>
+<p><a th:href="@{|/photos/${photo.getId}/delete|}">Delete photo</a></p>
 </body>
 </html>

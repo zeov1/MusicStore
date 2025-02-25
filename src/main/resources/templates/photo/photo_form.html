@@ -2,30 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manufacturer form</title>
+    <title>Photo form</title>
 </head>
 <body>
 <h1>Music Shop</h1>
 <p><a th:href="@{/}">Welcome to Music Shop</a></p>
 <hr>
-<h2 th:text="${manufacturer.getName == null} ? 'New manufacturer' : ${manufacturer.getName}">
-    Manufacturer name
+<h2 th:text="${photo.getImageName == null} ? 'New photo' : ${photo.getImageName}">
+    Photo name
 </h2>
 <th th:with="
-type=${manufacturer.getName == null} ? 'create' : 'update',
-actionCreate='/manufacturers',
-actionUpdate=('/manufacturers/' + ${manufacturer.getId}),
+type=${photo.getImageName == null} ? 'create' : 'update',
+actionCreate='/photos',
+actionUpdate=('/photos/' + ${photo.getId}),
 actionUrl=(${type == 'create'} ? ${actionCreate} : ${actionUpdate}),
 method=(${type == 'create'} ? 'post' : 'patch')
 ">
     <form action="#"
           th:action="@{${actionUrl}}"
-          th:object="${manufacturer}"
+          th:object="${photo}"
           method="post"
           th:method="@{${method}}">
         <p>
             <label for="name">Name:</label>
-            <input type="text" id="name" th:field="*{name}">
+            <input type="text" id="name" th:field="*{imageName}">
         </p>
         <input type="submit" value="Submit">
     </form>
