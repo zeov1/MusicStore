@@ -13,9 +13,8 @@ import ru.zeovl.musicstore.services.PhotoService;
 import ru.zeovl.musicstore.services.ProductService;
 import ru.zeovl.musicstore.services.ProductTypeService;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/products")
@@ -37,7 +36,7 @@ public class ProductController {
     @GetMapping("/new")
     String newProduct(Model model) {
         Product product = new Product();
-        Set<Photo> productPhotos = new HashSet<>();
+        List<Photo> productPhotos = new ArrayList<>();
         List<Manufacturer> manufacturers = manufacturerService.findAll();
         List<ProductType> productTypes = productTypeService.findAll();
         List<Photo> photos = photoService.findAll();
