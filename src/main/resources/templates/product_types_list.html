@@ -10,8 +10,10 @@
 <hr>
 <h2>Product Types</h2>
 <p th:each="el: ${list}">
-    <span th:text="${el.getId()}">product type id</span>.
-    <span th:text="${el.getName()}">product type name</span>
+    <a th:href="@{|/product_types/${el.getId()}|}">
+        <span th:text="${el.getId()}">product type id</span>.
+        <span th:text="${el.getName()}">product type name</span>
+    </a>
 </p>
 </body>
 </html>

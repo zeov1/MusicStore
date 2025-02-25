@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${manufacturer.getName()}">Title</title>
+</head>
+<body>
+<h1>Music Shop</h1>
+<p><a th:href="@{/}">Welcome to Music Shop</a></p>
+<hr>
+<h2 th:text="|${manufacturer.getName()} products|">Manufacturer name</h2>
+<p th:each="product: ${products}">
+    <a th:href="@{|/products/${product.getId()}|}">
+        <span th:text="${product.getId()}">product id</span>.
+        <span th:text="${product.getName()}">product name</span>
+    </a>
+</p>
+</body>
+</html>

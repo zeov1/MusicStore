@@ -10,8 +10,10 @@
 <hr>
 <h2>Photos</h2>
 <p th:each="el: ${list}">
-  <span th:text="${el.getId()}">photo id</span>.
-  <span th:text="${el.getImageName()}">photo name</span>
+  <a th:href="@{|/photos/${el.getId}|}">
+    <span th:text="${el.getId}">photo id</span>.
+    <span th:text="${el.getImageName}">photo name</span>
+  </a>
 </p>
 </body>
 </html>

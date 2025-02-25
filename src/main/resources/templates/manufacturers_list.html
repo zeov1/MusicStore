@@ -10,8 +10,10 @@
 <hr>
 <h2>Manufacturers</h2>
 <p th:each="el: ${list}">
-    <span th:text="${el.getId()}">manufacturer id</span>.
-    <span th:text="${el.getName()}">manufacturer name</span>
+    <a th:href="@{|/manufacturers/${el.getId()}|}">
+        <span th:text="${el.getId()}">manufacturer id</span>.
+        <span th:text="${el.getName()}">manufacturer name</span>
+    </a>
 </p>
 </body>
 </html>

@@ -12,29 +12,29 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class ProductTypeService {
-    private final ProductTypeRepository ProductTypeRepository;
+    private final ProductTypeRepository productTypeRepository;
 
     @Autowired
     public ProductTypeService(ProductTypeRepository ProductTypeRepository) {
-        this.ProductTypeRepository = ProductTypeRepository;
+        this.productTypeRepository = ProductTypeRepository;
     }
 
     public List<ProductType> findAll() {
-        return ProductTypeRepository.findAll();
+        return productTypeRepository.findAll();
     }
 
     public ProductType findById(int id) {
-        Optional<ProductType> ProductType = ProductTypeRepository.findById(id);
+        Optional<ProductType> ProductType = productTypeRepository.findById(id);
         return ProductType.orElse(null);
     }
 
     @Transactional
     public ProductType save(ProductType ProductType) {
-        return ProductTypeRepository.save(ProductType);
+        return productTypeRepository.save(ProductType);
     }
 
     @Transactional
     public void delete(ProductType ProductType) {
-        ProductTypeRepository.delete(ProductType);
+        productTypeRepository.delete(ProductType);
     }
 }
