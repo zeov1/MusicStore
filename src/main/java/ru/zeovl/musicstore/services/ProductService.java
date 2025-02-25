@@ -62,6 +62,9 @@ public class ProductService {
         productToBeUpdated.setAmount(product.getAmount());
         productToBeUpdated.setUnitsSold(product.getUnitsSold());
         productToBeUpdated.setIsArchived(product.getIsArchived());
+        productToBeUpdated.setManufacturer(product.getManufacturer());
+        productToBeUpdated.setProductType(product.getProductType());
+        productToBeUpdated.setPhotos(product.getPhotos());
     }
 
     @Transactional

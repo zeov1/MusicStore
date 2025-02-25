@@ -47,6 +47,32 @@ method=(${type == 'create'} ? 'post' : 'patch')
             <label for="is_archived">Is archived:</label>
             <input type="checkbox" id="is_archived" th:field="*{isArchived}">
         </p>
+        <p>
+            <label for="manufacturer">Manufacturer:</label>
+            <select th:field="*{manufacturer}" id="manufacturer">
+                <option th:each="manufacturer : ${manufacturers}"
+                        th:value="${manufacturer.getId}"
+                        th:text="${manufacturer.getName}"
+                        th:selected="${manufacturer.getId == product.getManufacturer?.getId}"></option>
+            </select>
+        </p>
+        <p>
+            <label for="product_type">Product type:</label>
+            <select th:field="*{productType}" id="product_type">
+                <option th:each="productType : ${productTypes}"
+                        th:value="${productType.getId}"
+                        th:text="${productType.getName}"
+                        th:selected="${productType.getId == product.getProductType?.getId}"></option>
+            </select>
+        </p>
+        <div>
+            <p>Photos:</p>
+            <p th:each="photo : ${photos}">
+                <input th:id="|photo_${photo.getId}|" type="checkbox" th:field="*{photos}" th:value="${photo.getId}"
+                th:checked="${productPhotos.contains(photo)}">
+                <label th:for="|photo_${photo.getId}|" th:text="${photo.getImageName}"></label>
+            </p>
+        </div>
         <input type="submit" value="Submit">
     </form>
 </th>
