@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|Delete ${manufacturer.getName}|">Title</title>
+</head>
+<body>
+<h1>Music Shop</h1>
+<p><a th:href="@{/}">Welcome to Music Shop</a></p>
+<hr>
+<h1 th:text="|Are you sure you want to delete ${manufacturer.getName}?|">Confirmation message</h1>
+<form action="#"
+      th:action="@{|/manufacturers/${manufacturer.getId}|}"
+      method="post"
+      th:method="delete">
+    <input type="submit" value="Delete">
+</form>
+</body>
+</html>

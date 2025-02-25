@@ -42,4 +42,15 @@ public class ManufacturerService {
     public void delete(Manufacturer manufacturer) {
         manufacturerRepository.delete(manufacturer);
     }
+
+    @Transactional
+    public void update(int id, Manufacturer updatedManufacturer) {
+        updatedManufacturer.setId(id);
+        manufacturerRepository.save(updatedManufacturer);
+    }
+
+    @Transactional
+    public void deleteById(int id) {
+        manufacturerRepository.deleteById(id);
+    }
 }

@@ -17,7 +17,7 @@ public class ProductType {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(targetEntity = Product.class)
+    @OneToMany(mappedBy = "productType")
     private List<Product> products;
 
     public ProductType(String name) {

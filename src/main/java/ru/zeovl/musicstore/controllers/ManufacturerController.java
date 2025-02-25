@@ -3,9 +3,7 @@ package ru.zeovl.musicstore.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.zeovl.musicstore.models.Manufacturer;
 import ru.zeovl.musicstore.models.Product;
 import ru.zeovl.musicstore.services.ManufacturerService;
@@ -26,6 +24,24 @@ public class ManufacturerController {
         this.productService = productService;
     }
 
+    @PostMapping("")
+    String persistManufacturer(Manufacturer manufacturer) {
+        manufacturerService.save(manufacturer);
+        return "redirect:/manufacturers";
+    }
+
+    @PostMapping("/{id}")
+    String persistManufacturer(@PathVariable int id, Manufacturer manufacturer) {
+        manufacturerService.update(id, manufacturer);
+        return "redirect:/manufacturers";
+    }
+
+    @DeleteMapping("/{id}")
+    String deleteManufacturer(@PathVariable int id) {
+        manufacturerService.deleteById(id);
+        return "redirect:/manufacturers";
+    }
+
     @GetMapping("")
     String getManufacturersList(Model model) {
         model.addAttribute("list", manufacturerService.findAll());
@@ -39,5 +55,26 @@ public class ManufacturerController {
         model.addAttribute("manufacturer", manufacturer);
         model.addAttribute("products", relatedProducts);
         return "manufacturer_detail";
+    }
+
+    @GetMapping("/new")
+    String newManufacturer(Model model) {
+        Manufacturer manufacturer = new Manufacturer();
+        model.addAttribute("manufacturer", manufacturer);
+        return "manufacturer_form";
+    }
+
+    @GetMapping("/{id}/edit")
+    String editManufacturer(@PathVariable int id, Model model) {
+        Manufacturer manufacturer = manufacturerService.findById(id);
+        model.addAttribute("manufacturer", manufacturer);
+        return "manufacturer_form";
+    }
+
+    @GetMapping("/{id}/delete")
+    String confirmDeletingManufacturer(@PathVariable int id, Model model) {
+        Manufacturer manufacturer = manufacturerService.findById(id);
+        model.addAttribute("manufacturer", manufacturer);
+        return "manufacturer_delete_confirmation";
     }
 }

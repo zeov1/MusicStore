@@ -2,6 +2,7 @@ package ru.zeovl.musicstore.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,14 +15,16 @@ public class Manufacturer {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(targetEntity = Product.class)
+    @OneToMany(mappedBy = "manufacturer")
     private List<Product> products;
 
     public Manufacturer(String name) {
+        this.products = new ArrayList<Product>();
         this.name = name;
     }
 
     public Manufacturer() {
+        this.products = new ArrayList<Product>();
     }
 
     public int getId() {
