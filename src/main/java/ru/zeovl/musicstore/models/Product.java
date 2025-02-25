@@ -1,6 +1,7 @@
 package ru.zeovl.musicstore.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -29,7 +30,7 @@ public class Product {
     private int unitsSold;
 
     @Column(name = "date_added")
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date dateAdded;
 
     @Column(name = "is_archived")
@@ -68,11 +69,13 @@ public class Product {
     }
 
     public Product() {
+        this.dateAdded = new Date();
     }
 
     public Product(String name, BigDecimal price) {
         this.name = name;
         this.price = price;
+        this.dateAdded = new Date();
     }
 
     public Product(String name, String description, BigDecimal price, int amount) {
@@ -80,6 +83,17 @@ public class Product {
         this.description = description;
         this.price = price;
         this.amount = amount;
+        this.dateAdded = new Date();
+    }
+
+    public Product(String name, String description, BigDecimal price, int amount, int unitsSold, boolean isArchived) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.amount = amount;
+        this.unitsSold = unitsSold;
+        this.isArchived = isArchived;
+        this.dateAdded = new Date();
     }
 
     public int getId() {
@@ -138,12 +152,12 @@ public class Product {
         this.dateAdded = dateAdded;
     }
 
-    public boolean isArchived() {
+    public boolean getIsArchived() {
         return isArchived;
     }
 
-    public void setArchived(boolean archived) {
-        isArchived = archived;
+    public void setIsArchived(boolean isArchived) {
+        this.isArchived = isArchived;
     }
 
     public List<Photo> getPhotos() {

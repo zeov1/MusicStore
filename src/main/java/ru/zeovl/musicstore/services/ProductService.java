@@ -52,4 +52,20 @@ public class ProductService {
     public List<Product> findByPhotosContaining(Photo photo) {
         return productRepository.findByPhotosContaining(photo);
     }
+
+    @Transactional
+    public void update(int id, Product product) {
+        Product productToBeUpdated = productRepository.findById(id).orElse(new Product());
+        productToBeUpdated.setName(product.getName());
+        productToBeUpdated.setDescription(product.getDescription());
+        productToBeUpdated.setPrice(product.getPrice());
+        productToBeUpdated.setAmount(product.getAmount());
+        productToBeUpdated.setUnitsSold(product.getUnitsSold());
+        productToBeUpdated.setIsArchived(product.getIsArchived());
+    }
+
+    @Transactional
+    public void deleteById(int id) {
+        productRepository.deleteById(id);
+    }
 }
