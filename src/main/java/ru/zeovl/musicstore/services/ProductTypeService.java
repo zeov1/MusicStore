@@ -37,4 +37,15 @@ public class ProductTypeService {
     public void delete(ProductType ProductType) {
         productTypeRepository.delete(ProductType);
     }
+
+    @Transactional
+    public void update(int id, ProductType productType) {
+        productType.setId(id);
+        productTypeRepository.save(productType);
+    }
+
+    @Transactional
+    public void deleteById(int id) {
+        productTypeRepository.deleteById(id);
+    }
 }
