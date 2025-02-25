@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Photos</title>
+</head>
+<body>
+<h1>Music Shop</h1>
+<p><a th:href="@{/}">Welcome to Music Shop</a></p>
+<hr>
+<h2>Photos</h2>
+<p th:each="el: ${list}">
+  <span th:text="${el.getId()}">photo id</span>.
+  <span th:text="${el.getImageName()}">photo name</span>
+</p>
+</body>
+</html>

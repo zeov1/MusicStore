@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manufacturers</title>
+    <title>Products</title>
 </head>
 <body>
 <h1>Music Shop</h1>
 <p><a th:href="@{/}">Welcome to Music Shop</a></p>
 <hr>
-<h2>Manufacturers</h2>
+<h2>Products</h2>
 <p th:each="el: ${list}">
-    <span th:text="${el.getId()}">manufacturer id</span>.
-    <span th:text="${el.getName()}">manufacturer name</span>
+    <span th:text="${el.getId()}">product id</span>.
+    <span th:text="${el.getName()}">product name</span>
 </p>
 </body>
 </html>
