@@ -45,7 +45,7 @@ public class ManufacturerController {
     @GetMapping("")
     String getManufacturersList(Model model) {
         model.addAttribute("list", manufacturerService.findAll());
-        return "manufacturers_list";
+        return "manufacturer/manufacturers_list";
     }
 
     @GetMapping("/{id}")
@@ -54,27 +54,27 @@ public class ManufacturerController {
         List<Product> relatedProducts = productService.findByManufacturer(manufacturer);
         model.addAttribute("manufacturer", manufacturer);
         model.addAttribute("products", relatedProducts);
-        return "manufacturer_detail";
+        return "manufacturer/manufacturer_detail";
     }
 
     @GetMapping("/new")
     String newManufacturer(Model model) {
         Manufacturer manufacturer = new Manufacturer();
         model.addAttribute("manufacturer", manufacturer);
-        return "manufacturer_form";
+        return "manufacturer/manufacturer_form";
     }
 
     @GetMapping("/{id}/edit")
     String editManufacturer(@PathVariable int id, Model model) {
         Manufacturer manufacturer = manufacturerService.findById(id);
         model.addAttribute("manufacturer", manufacturer);
-        return "manufacturer_form";
+        return "manufacturer/manufacturer_form";
     }
 
     @GetMapping("/{id}/delete")
     String confirmDeletingManufacturer(@PathVariable int id, Model model) {
         Manufacturer manufacturer = manufacturerService.findById(id);
         model.addAttribute("manufacturer", manufacturer);
-        return "manufacturer_delete_confirmation";
+        return "manufacturer/manufacturer_delete_confirmation";
     }
 }

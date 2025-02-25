@@ -29,7 +29,7 @@ public class ProductController {
     @GetMapping("")
     String getProductsList(Model model) {
         model.addAttribute("list", productService.findAll());
-        return "products_list";
+        return "product/products_list";
     }
 
     @GetMapping("/{id}")
@@ -38,6 +38,6 @@ public class ProductController {
         List<Photo> relatedPhotos = photoService.getByProductsContaining(product);
         model.addAttribute("product", product);
         model.addAttribute("photos", relatedPhotos);
-        return "product_detail";
+        return "product/product_detail";
     }
 }

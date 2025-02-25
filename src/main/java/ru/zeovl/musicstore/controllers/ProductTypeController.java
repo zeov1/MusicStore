@@ -29,7 +29,7 @@ public class ProductTypeController {
     @GetMapping("")
     String getProductTypesList(Model model) {
         model.addAttribute("list", productTypeService.findAll());
-        return "product_types_list";
+        return "product_type/product_types_list";
     }
 
     @GetMapping("/{id}")
@@ -38,6 +38,6 @@ public class ProductTypeController {
         List<Product> relatedProducts = productService.findByProductType(productType);
         model.addAttribute("productType", productType);
         model.addAttribute("products", relatedProducts);
-        return "product_type_detail";
+        return "product_type/product_type_detail";
     }
 }
