@@ -15,12 +15,17 @@
     <p th:text="|Created at: ${photo.getCreatedAt.toGMTString}|"></p>
 </div>
 <h2 th:text="|Products related with photo ${photo.getImageName}|">Related products</h2>
-<p th:each="product: ${products}">
-    <a th:href="@{|/products/${product.getId}|}">
-        <span th:text="${product.getId}">product id</span>.
-        <span th:text="${product.getName}">product name</span>
-    </a>
-</p>
+<th th:if="${products.isEmpty}">
+    <p>No related products</p>
+</th>
+<th th:else>
+    <p th:each="product: ${products}">
+        <a th:href="@{|/products/${product.getId}|}">
+            <span th:text="${product.getId}">product id</span>.
+            <span th:text="${product.getName}">product name</span>
+        </a>
+    </p>
+</th>
 <hr>
 <p><a th:href="@{|/photos/${photo.getId}/edit|}">Edit photo</a></p>
 <p><a th:href="@{|/photos/${photo.getId}/delete|}">Delete photo</a></p>
