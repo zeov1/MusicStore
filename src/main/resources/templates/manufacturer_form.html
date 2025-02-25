@@ -11,12 +11,18 @@
 <h2 th:text="${manufacturer.getName == null} ? 'New manufacturer' : ${manufacturer.getName}">
     Manufacturer name
 </h2>
-<th th:with="option1='/manufacturers', option2=('/manufacturers/' + ${manufacturer.getId})">
+<th th:with="
+type=${manufacturer.getName == null} ? 'create' : 'update',
+actionCreate='/manufacturers',
+actionUpdate=('/manufacturers/' + ${manufacturer.getId}),
+actionUrl=(${type == 'create'} ? ${actionCreate} : ${actionUpdate}),
+method=(${type == 'create'} ? 'post' : 'patch')
+">
     <form action="#"
-          th:with="actionUrl=(${manufacturer.getName == null} ? ${option1} : ${option2})"
           th:action="@{${actionUrl}}"
           th:object="${manufacturer}"
-          method="post">
+          method="post"
+          th:method="@{${method}}">
         <p>
             <label for="name">Name:</label>
             <input type="text" id="name" th:field="*{name}">

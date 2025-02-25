@@ -30,8 +30,8 @@ public class ManufacturerController {
         return "redirect:/manufacturers";
     }
 
-    @PostMapping("/{id}")
-    String persistManufacturer(@PathVariable int id, Manufacturer manufacturer) {
+    @PatchMapping("/{id}")
+    String updateManufacturer(@PathVariable int id, Manufacturer manufacturer) {
         manufacturerService.update(id, manufacturer);
         return "redirect:/manufacturers";
     }
