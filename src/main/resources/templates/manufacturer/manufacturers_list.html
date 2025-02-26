@@ -3,19 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Manufacturers</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
 </head>
 <body>
-<h1>Music Shop</h1>
-<p><a th:href="@{/}">Welcome to Music Shop</a></p>
-<hr>
-<h2>Manufacturers</h2>
-<p th:each="el: ${list}">
-    <a th:href="@{|/manufacturers/${el.getId()}|}">
-        <span th:text="${el.getId()}">manufacturer id</span>.
-        <span th:text="${el.getName()}">manufacturer name</span>
-    </a>
-</p>
-<hr>
-<a th:href="@{/manufacturers/new}">New manufacturer</a>
+
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2>Manufacturers</h2>
+        <p th:each="el: ${list}">
+            <a th:href="@{|/manufacturers/${el.getId()}|}">
+                <span th:text="${el.getId()}">manufacturer id</span>.
+                <span th:text="${el.getName()}">manufacturer name</span>
+            </a>
+        </p>
+        <hr>
+        <a th:href="@{/manufacturers/new}">New manufacturer</a>
+    </div>
+</section>
+
 </body>
 </html>

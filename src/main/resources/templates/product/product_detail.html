@@ -3,48 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${product.getName()}">Title</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
 </head>
 <body>
-<h1>Music Shop</h1>
-<p><a th:href="@{/}">Welcome to Music Shop</a></p>
-<hr>
-<h2 th:text="|${product.getName()} details|">Product name</h2>
-<div>
-    <p th:text="|Product ID: ${product.getId}|"></p>
-    <p th:text="|Product name: ${product.getName}|"></p>
-    <p th:text="|Price: ${product.getPrice}|"></p>
-    <p th:text="|Description: ${product.getDescription}|"></p>
-    <p>
-        Manufacturer:
-        <a th:href="@{|/manufacturers/${product.getManufacturer.getId}|}"
-           th:text="${product.getManufacturer.getName}"></a>
-    </p>
-    <p>
-        Product type:
-        <a th:href="@{|/product_types/${product.getProductType.getId}|}"
-           th:text="${product.getProductType.getName}"></a>
-    </p>
-    <p th:text="|Amount: ${product.getAmount}|"></p>
-    <p th:text="|Units sold: ${product.getUnitsSold}|"></p>
-    <p th:text="|Date added: ${product.getDateAdded.toGMTString}|"></p>
-</div>
-<h2 th:text="|${product.getName()} photos|">Product photos</h2>
-<th th:if="${photos.isEmpty}">
-    <p>No photos</p>
-</th>
-<th th:else>
-    <ul th:each="photo : ${product.getPhotos}">
-        <li>
-            <a th:href="@{|/photos/${photo.getId}|}">
-                <span th:text="${photo.getId}">photo id</span>.
-                <span th:text="${photo.getImageName}">photo name</span>
-            </a>
-        </li>
-    </ul>
-</th>
 
-<hr>
-<p><a th:href="@{|/products/${product.getId}/edit|}">Edit product</a></p>
-<p><a th:href="@{|/products/${product.getId}/delete|}">Delete product</a></p>
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2 th:text="|${product.getName()} details|">Product name</h2>
+        <div>
+            <p th:text="|Product ID: ${product.getId}|"></p>
+            <p th:text="|Product name: ${product.getName}|"></p>
+            <p th:text="|Price: ${product.getPrice}|"></p>
+            <p th:text="|Description: ${product.getDescription}|"></p>
+            <p>
+                Manufacturer:
+                <a th:href="@{|/manufacturers/${product.getManufacturer.getId}|}"
+                   th:text="${product.getManufacturer.getName}"></a>
+            </p>
+            <p>
+                Product type:
+                <a th:href="@{|/product_types/${product.getProductType.getId}|}"
+                   th:text="${product.getProductType.getName}"></a>
+            </p>
+            <p th:text="|Amount: ${product.getAmount}|"></p>
+            <p th:text="|Units sold: ${product.getUnitsSold}|"></p>
+            <p th:text="|Date added: ${product.getDateAdded.toGMTString}|"></p>
+        </div>
+        <h2 th:text="|${product.getName()} photos|">Product photos</h2>
+        <th th:if="${photos.isEmpty}">
+            <p>No photos</p>
+        </th>
+        <th th:else>
+            <ul th:each="photo : ${product.getPhotos}">
+                <li>
+                    <a th:href="@{|/photos/${photo.getId}|}">
+                        <span th:text="${photo.getId}">photo id</span>.
+                        <span th:text="${photo.getImageName}">photo name</span>
+                    </a>
+                </li>
+            </ul>
+        </th>
+
+        <hr>
+        <p><a th:href="@{|/products/${product.getId}/edit|}">Edit product</a></p>
+        <p><a th:href="@{|/products/${product.getId}/delete|}">Delete product</a></p>
+    </div>
+</section>
+
 </body>
 </html>

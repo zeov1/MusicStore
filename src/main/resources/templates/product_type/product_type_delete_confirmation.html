@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="|Delete ${productType.getName}|">Title</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
 </head>
 <body>
-<h1>Music Shop</h1>
-<p><a th:href="@{/}">Welcome to Music Shop</a></p>
-<hr>
-<h1 th:text="|Are you sure you want to delete ${productType.getName()}?|">Confirmation message</h1>
-<form action="#"
-      th:action="@{|/product_types/${productType.getId}|}"
-      method="post"
-      th:method="delete">
-    <input type="submit" value="Delete">
-</form>
+
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h1 th:text="|Are you sure you want to delete ${productType.getName()}?|">Confirmation message</h1>
+        <form action="#"
+              th:action="@{|/product_types/${productType.getId}|}"
+              method="post"
+              th:method="delete">
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+</section>
+
 </body>
 </html>

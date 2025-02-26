@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Product form</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
 </head>
 <body th:with="
     method=(${isNew} ? 'post' : 'patch'),
@@ -10,83 +11,91 @@
     actionUpdate=('/products/' + ${product.id}),
     actionUrl=(${isNew} ? ${actionCreate} : ${actionUpdate})
 ">
-<h1>Music Shop</h1>
-<p><a th:href="@{/}">Welcome to Music Shop</a></p>
-<hr>
-<h2 th:text="${isNew} ? 'New product' : ${product.name}">
-    Product name
-</h2>
-<form action="#"
-      th:action="@{${actionUrl}}"
-      th:object="${product}"
-      method="post"
-      th:method="@{${method}}">
-    <p>
-        <label for="name">Name:</label>
-        <input type="text" maxlength="150" id="name" th:field="*{name}">
-        <br><label for="name" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red">Errors</label>
-    </p>
-    <p>
-        <label for="description">Description:</label>
-        <textarea id="description" th:field="*{description}" th:text="${product.getDescription}" maxlength="2000"></textarea>
-        <br><label for="description" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
-                   style="color:red">Errors</label>
-    </p>
-    <p>
-        <label for="price">Price:</label>
-        <input type="number" step="0.01" min="0" max="10000000" id="price" th:field="*{price}" placeholder="29.99">
-        <br><label for="price" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
-                   style="color:red">Errors</label>
-    </p>
-    <p>
-        <label for="amount">Amount:</label>
-        <input type="number" step="1" max="100000" id="amount" th:field="*{amount}">
-        <br><label for="amount" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"
-                   style="color:red">Errors</label>
-    </p>
-    <p>
-        <label for="units_sold">Units sold:</label>
-        <input type="number" step="1" max="100000" id="units_sold" th:field="*{unitsSold}">
-        <br><label for="units_sold" th:if="${#fields.hasErrors('unitsSold')}" th:errors="*{unitsSold}"
-                   style="color:red">Errors</label>
-    </p>
-    <p>
-        <label for="is_archived">Is archived:</label>
-        <input type="checkbox" id="is_archived" th:field="*{isArchived}">
-        <br><label for="is_archived" th:if="${#fields.hasErrors('isArchived')}" th:errors="*{isArchived}"
-                   style="color:red">Errors</label>
-    </p>
-    <p>
-        <label for="manufacturer">Manufacturer:</label>
-        <select th:field="*{manufacturer}" id="manufacturer">
-            <option th:each="manufacturer : ${manufacturers}"
-                    th:value="${manufacturer.getId}"
-                    th:text="${manufacturer.getName}"
-                    th:selected="${manufacturer.getId == product.getManufacturer?.getId}"></option>
-        </select>
-        <br><label for="manufacturer" th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"
-                   style="color:red">Errors</label>
-    </p>
-    <p>
-        <label for="product_type">Product type:</label>
-        <select th:field="*{productType}" id="product_type">
-            <option th:each="productType : ${productTypes}"
-                    th:value="${productType.getId}"
-                    th:text="${productType.getName}"
-                    th:selected="${productType.getId == product.getProductType?.getId}"></option>
-        </select>
-        <br><label for="product_type" th:if="${#fields.hasErrors('productType')}" th:errors="*{productType}"
-                   style="color:red">Errors</label>
-    </p>
-    <div>
-        <p>Photos:</p>
-        <p th:each="photo : ${photos}">
-            <input th:id="|photo_${photo.getId}|" type="checkbox" th:field="*{photos}" th:value="${photo.getId}"
-                   th:checked="${productPhotos.contains(photo)}">
-            <label th:for="|photo_${photo.getId}|" th:text="${photo.getImageName}"></label>
-        </p>
+
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2 th:text="${isNew} ? 'New product' : ${product.name}"></h2>
+        <form class="row g-3" th:action="@{${actionUrl}}" th:object="${product}" th:method="@{${method}}">
+            <div class="col-md-4">
+                <label class="form-label" for="name">Name:</label>
+                <input class="form-control" type="text" maxlength="150" id="name" th:field="*{name}">
+                <label class="form-label text-danger" for="name" th:if="${#fields.hasErrors('name')}"
+                       th:errors="*{name}"></label>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" for="price">Price:</label>
+                <input class="form-control" type="number" step="0.01" min="0" max="10000000" id="price"
+                       th:field="*{price}" placeholder="29.99">
+                <label class="form-label text-danger" for="price" th:if="${#fields.hasErrors('price')}"
+                       th:errors="*{price}"></label>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="amount">Amount:</label>
+                <input class="form-control" type="number" step="1" max="100000" id="amount" th:field="*{amount}">
+                <label class="form-label text-danger" for="amount" th:if="${#fields.hasErrors('amount')}"
+                       th:errors="*{amount}"></label>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="units_sold">Units sold:</label>
+                <input class="form-control" type="number" step="1" max="100000" id="units_sold" th:field="*{unitsSold}">
+                <label class="form-label text-danger" for="units_sold" th:if="${#fields.hasErrors('unitsSold')}"
+                       th:errors="*{unitsSold}"></label>
+            </div>
+            <div class="col-md-1">
+                <label class="form-label" for="is_archived">Archived:</label>
+                <input class="form-check" type="checkbox" id="is_archived" th:field="*{isArchived}">
+                <label class="form-label text-danger" for="is_archived" th:if="${#fields.hasErrors('isArchived')}"
+                       th:errors="*{isArchived}"></label>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="manufacturer">Manufacturer:</label>
+                <select class="form-select" th:field="*{manufacturer}" id="manufacturer">
+                    <option th:each="manufacturer : ${manufacturers}"
+                            th:value="${manufacturer.getId}"
+                            th:text="${manufacturer.getName}"
+                            th:selected="${manufacturer.getId == product.getManufacturer?.getId}"></option>
+                </select>
+                <label class="form-label text-danger" for="manufacturer" th:if="${#fields.hasErrors('manufacturer')}"
+                       th:errors="*{manufacturer}"></label>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="product_type">Product type:</label>
+                <select class="form-select" th:field="*{productType}" id="product_type">
+                    <option th:each="productType : ${productTypes}"
+                            th:value="${productType.getId}"
+                            th:text="${productType.getName}"
+                            th:selected="${productType.getId == product.getProductType?.getId}"></option>
+                </select>
+                <label class="form-label text-danger" for="product_type" th:if="${#fields.hasErrors('productType')}"
+                       th:errors="*{productType}"></label>
+            </div>
+            <div class="col-md-8">
+                <label class="form-label" for="description">Description:</label>
+                <textarea class="form-control" style="height: 140px" id="description" th:field="*{description}"
+                          th:text="${product.getDescription}"
+                          maxlength="2000"></textarea>
+                <label class="form-label text-danger" for="description" th:if="${#fields.hasErrors('description')}"
+                       th:errors="*{description}"></label>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Photos:</label>
+                <select class="form-select" multiple size="5">
+                    <option th:each="photo : ${photos}"
+                            th:id="|photo_${photo.id}|" type="checkbox" th:field="*{photos}"
+                            th:value="${photo.id}"
+                            th:text="${photo.imageName}"
+                            th:checked="${productPhotos.contains(photo)}"
+                    ></option>
+                </select>
+            </div>
+            <div class="col-md-4 mt-3">
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+        </form>
     </div>
-    <input type="submit" value="Submit">
-</form>
+</section>
+
 </body>
 </html>

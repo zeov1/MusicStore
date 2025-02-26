@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Manufacturer form</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
 </head>
 <body th:with="
     method=(${isNew} ? 'post' : 'patch'),
@@ -10,24 +11,25 @@
     actionUpdate=('/manufacturers/' + ${manufacturer.id}),
     actionUrl=(${isNew} ? ${actionCreate} : ${actionUpdate})
 ">
-<h1>Music Shop</h1>
-<p><a th:href="@{/}">Welcome to Music Shop</a></p>
-<hr>
 
-<h2 th:text="${isNew} ? 'New manufacturer' : ${manufacturer.name}">
-    Manufacturer name
-</h2>
-<form action="#"
-      th:action="@{${actionUrl}}"
-      th:object="${manufacturer}"
-      method="post"
-      th:method="@{${method}}">
-    <p>
-        <label for="name">Name:</label>
-        <input type="text" id="name" th:field="*{name}">
-        <br><label for="name" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red">Errors</label>
-    </p>
-    <input type="submit" value="Submit">
-</form>
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2 th:text="${isNew} ? 'New manufacturer' : ${manufacturer.name}"></h2>
+        <form class="col g-3" th:action="@{${actionUrl}}" th:object="${manufacturer}" th:method="@{${method}}">
+            <div class="col-md-4">
+                <label class="form-label" for="name">Name:</label>
+                <input class="form-control" type="text" id="name" th:field="*{name}">
+                <label class="form-label text-danger" for="name" th:if="${#fields.hasErrors('name')}"
+                       th:errors="*{name}"></label>
+            </div>
+            <div class="col-md-4 mt-3">
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</section>
+
 </body>
 </html>

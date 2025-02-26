@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Photo form</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
 </head>
 <body th:with="
     method=(${isNew} ? 'post' : 'patch'),
@@ -10,24 +11,26 @@
     actionUpdate=('/photos/' + ${photo.id}),
     actionUrl=(${isNew} ? ${actionCreate} : ${actionUpdate})
 ">
-<h1>Music Shop</h1>
-<p><a th:href="@{/}">Welcome to Music Shop</a></p>
-<hr>
-<h2 th:text="${isNew} ? 'New photo' : ${photo.imageName}">
-    Photo name
-</h2>
-<form action="#"
-      th:action="@{${actionUrl}}"
-      th:object="${photo}"
-      method="post"
-      th:method="@{${method}}">
-    <p>
-        <label for="name">Name:</label>
-        <input type="text" id="name" th:field="*{imageName}">
-        <br><label for="name" th:if="${#fields.hasErrors('imageName')}" th:errors="*{imageName}" style="color:red">Errors</label>
-    </p>
-    <input type="submit" value="Submit">
-</form>
+
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2 th:text="${isNew} ? 'New photo' : ${photo.imageName}"></h2>
+        <form class="col g-3" th:action="@{${actionUrl}}" th:object="${photo}"
+              th:method="@{${method}}" enctype="multipart/form-data">
+            <div class="col-md-4">
+                <label class="form-label" for="name">Name:</label>
+                <input class="form-control" type="text" id="name" th:field="*{imageName}">
+                <label class="form-label text-danger" for="name" th:if="${#fields.hasErrors('imageName')}"
+                       th:errors="*{imageName}"></label>
+            </div>
+            <div class="col-md-4 mt-3">
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</section>
 
 </body>
 </html>
