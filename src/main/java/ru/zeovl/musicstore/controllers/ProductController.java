@@ -56,7 +56,7 @@ public class ProductController {
     String createProduct(@Valid Product product, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("product", product);
-            model.addAttribute("productPhotos", product.getPhotos());
+            model.addAttribute("productPhotos", new ArrayList<>());
             model.addAttribute("isNew", true);
             prepareModel(model);
             return "product/product_form";
