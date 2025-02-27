@@ -3,12 +3,14 @@ package ru.zeovl.musicstore.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "manufacturers")
+@Data
 public class Manufacturer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,37 +24,8 @@ public class Manufacturer {
     @OneToMany(mappedBy = "manufacturer")
     private List<Product> products;
 
-    public Manufacturer(String name) {
-        this.products = new ArrayList<Product>();
-        this.name = name;
-    }
-
     public Manufacturer() {
         this.products = new ArrayList<Product>();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 
     @Override
@@ -63,3 +36,5 @@ public class Manufacturer {
                 '}';
     }
 }
+
+

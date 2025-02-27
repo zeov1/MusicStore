@@ -45,9 +45,9 @@
             </div>
             <div class="col-md-1">
                 <label class="form-label" for="is_archived">Archived:</label>
-                <input class="form-check" type="checkbox" id="is_archived" th:field="*{isArchived}">
-                <label class="form-label text-danger" for="is_archived" th:if="${#fields.hasErrors('isArchived')}"
-                       th:errors="*{isArchived}"></label>
+                <input class="form-check" type="checkbox" id="is_archived" th:field="*{archived}">
+                <label class="form-label text-danger" for="is_archived" th:if="${#fields.hasErrors('archived')}"
+                       th:errors="*{archived}"></label>
             </div>
             <div class="col-md-6">
                 <label class="form-label" for="manufacturer">Manufacturer:</label>

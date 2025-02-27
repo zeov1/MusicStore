@@ -3,11 +3,15 @@ package ru.zeovl.musicstore.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "product_types")
+@Data
+@NoArgsConstructor
 public class ProductType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,45 +29,6 @@ public class ProductType {
 
     @OneToMany(mappedBy = "productType")
     private List<Product> products;
-
-    public ProductType(String name) {
-        this.name = name;
-    }
-
-    public ProductType() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
 
     @Override
     public String toString() {

@@ -61,7 +61,7 @@ public class ProductService {
         productToBeUpdated.setPrice(product.getPrice());
         productToBeUpdated.setAmount(product.getAmount());
         productToBeUpdated.setUnitsSold(product.getUnitsSold());
-        productToBeUpdated.setIsArchived(product.getIsArchived());
+        productToBeUpdated.setArchived(product.isArchived());
         productToBeUpdated.setManufacturer(product.getManufacturer());
         productToBeUpdated.setProductType(product.getProductType());
         productToBeUpdated.setPhotos(product.getPhotos());
