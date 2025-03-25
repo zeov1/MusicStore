@@ -6,11 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.zeovl.musicstore.models.Photo;
 import ru.zeovl.musicstore.models.Product;
 import ru.zeovl.musicstore.services.PhotoService;
 import ru.zeovl.musicstore.services.ProductService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -32,19 +34,21 @@ public class PhotoController {
 
     @GetMapping("/new")
     String newPhoto(Model model) {
-        Photo photo = new Photo();
-        model.addAttribute("photo", photo);
+        model.addAttribute("photo", new Photo());
         model.addAttribute("isNew", true);
         return "photo/photo_form";
     }
 
     @PostMapping("")
-    String createPhoto(@ModelAttribute @Valid Photo photo, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
+    String createPhoto(@RequestParam MultipartFile file, @ModelAttribute @Valid Photo photo, BindingResult bindingResult, Model model) {
+        try {
+            photoService.save(photo, file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            model.addAttribute("fileError", e.getMessage());
             model.addAttribute("isNew", true);
             return "photo/photo_form";
         }
-        photoService.save(photo);
         return "redirect:/photos";
     }
 

@@ -11,13 +11,16 @@
 
 <section>
     <div class="container">
-        <h2 th:text="|Details of ${photo.getImageName}|">Details</h2>
+        <h2 th:text="|Details of ${photo.imageName}|">Details</h2>
         <div>
             <p th:text="|ID: ${photo.getId}|"></p>
-            <p th:text="|Image name: ${photo.getImageName}|"></p>
-            <p th:text="|Created at: ${photo.getCreatedAt.toGMTString}|"></p>
+            <p th:text="|Image name: ${photo.imageName}|"></p>
+            <p th:text="|Created at: ${photo.createdAt.toGMTString}|"></p>
+            <img th:src="@{|../../../../upload/${photo.imageName}|}" th:alt="${photo.imageName}">
+            <br>
+            <img th:src="@{/zXTy9Tdmfkk.jpg}" alt="artur (static)">
         </div>
-        <h2 th:text="|Products related with photo ${photo.getImageName}|">Related products</h2>
+        <h2 th:text="|Products related with photo ${photo.imageName}|">Related products</h2>
         <th th:if="${products.isEmpty}">
             <p>No related products</p>
         </th>
