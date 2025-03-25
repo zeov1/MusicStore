@@ -19,12 +19,12 @@
         <h2 th:text="${isNew} ? 'New photo' : ${photo.imageName}"></h2>
         <form class="col g-3" th:action="@{${actionUrl}}" th:object="${photo}"
               th:method="@{${method}}" enctype="multipart/form-data">
-<!--            <div class="col-md-4">-->
-<!--                <label class="form-label" for="name">Name:</label>-->
-<!--                <input class="form-control" type="text" id="name" th:field="*{imageName}">-->
-<!--                <label class="form-label text-danger" for="name" th:if="${#fields.hasErrors('imageName')}"-->
-<!--                       th:errors="*{imageName}"></label>-->
-<!--            </div>-->
+            <div class="col-md-4">
+                <label class="form-label" for="name">Name:</label>
+                <input class="form-control" type="text" id="name" th:field="*{imageName}">
+                <label class="form-label text-danger" for="name" th:if="${#fields.hasErrors('imageName')}"
+                       th:errors="*{imageName}"></label>
+            </div>
             <div class="col-md-4">
                 <label class="form-label" for="file"></label>
                 <input class="form-control" id="file" type="file" name="file">

@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -39,8 +40,27 @@ public class PhotoService {
 
     @Transactional
     public Photo save(Photo photo, MultipartFile file) throws IOException {
-        file.transferTo(new File(uploadDirResource.getURL().getPath() + "/static/photos/" + file.getOriginalFilename()));
-        photo.setImageName(file.getOriginalFilename());
+        File[] files = new File(uploadDirResource.getURL().getPath() + "/photos/").listFiles();
+        String filename = photo.getImageName();
+        String extension;
+        if (file.getOriginalFilename().contains(".")) {
+            extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        } else {
+            extension = ".jpg";
+        }
+        String customID = "";
+        if (files != null) {
+            for (File f : files) {
+                String fName = f.getName();
+                if (fName.equals(filename + extension)) {
+                    customID = System.currentTimeMillis() + "-" + UUID.randomUUID() + "-";
+                    break;
+                }
+            }
+        }
+        String resultName = customID + filename + extension;
+        file.transferTo(new File(uploadDirResource.getURL().getPath() + "/photos/" + resultName));
+        photo.setImageName(resultName);
         return photoRepository.save(photo);
     }
 
