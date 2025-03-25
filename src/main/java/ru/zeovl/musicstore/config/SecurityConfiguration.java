@@ -6,11 +6,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-public class ApplicationNoSecurity {
+public class SecurityConfiguration {
 
     /**
-     * Этот метод отключает необходимость авторизации пользоателя для доступа ко всем URL.
-     * В будущем поведение будет изменено.
+     * Этот метод отключает необходимость авторизации пользоателя для
+     * доступа ко всем URL. В будущем поведение будет изменено.
      */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
