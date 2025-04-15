@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Shop</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
+</head>
+<body>
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2>Navigation</h2>
+        <ul>
+            <li><a th:href="@{/admin/products}">Products</a></li>
+            <li><a th:href="@{/admin/product_types}">Product Types</a></li>
+            <li><a th:href="@{/admin/manufacturers}">Manufacturers</a></li>
+            <li><a th:href="@{/admin/photos}">Photos</a></li>
+        </ul>
+    </div>
+</section>
+
+</body>
+</html>

@@ -43,11 +43,14 @@ CREATE TABLE IF NOT EXISTS product_photo_links
     FOREIGN KEY (photo_id) REFERENCES photos (id) ON DELETE CASCADE
 );
 
-create table if not exists users
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE IF NOT EXISTS users
 (
     id          BIGSERIAL PRIMARY KEY,
     username    VARCHAR(100) NOT NULL UNIQUE,
     password    VARCHAR(150) NOT NULL,
     email       VARCHAR(100) NOT NULL,
-    date_joined DATE         NOT NULL DEFAULT CURRENT_DATE
+    date_joined DATE         NOT NULL DEFAULT CURRENT_DATE,
+    role        varchar      NOT NULL DEFAULT 'ROLE_USER'
 );

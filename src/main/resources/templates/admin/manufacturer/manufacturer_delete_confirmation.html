@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|Delete ${manufacturer.getName}|">Title</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
+</head>
+<body>
+
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h1 th:text="|Are you sure you want to delete ${manufacturer.getName}?|">Confirmation message</h1>
+        <form action="#"
+              th:action="@{|/admin/manufacturers/${manufacturer.getId}|}"
+              method="post"
+              th:method="delete">
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

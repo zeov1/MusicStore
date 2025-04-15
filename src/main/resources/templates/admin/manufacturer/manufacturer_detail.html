@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${manufacturer.getName()}">Title</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
+</head>
+<body>
+
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2 th:text="|${manufacturer.getName()} products|">Manufacturer name</h2>
+        <th th:if="${products.isEmpty}">
+            <p>No products</p>
+        </th>
+        <th th:else>
+            <p th:each="product: ${products}">
+                <a th:href="@{|/admin/products/${product.getId()}|}">
+                    <span th:text="${product.getId()}">product id</span>.
+                    <span th:text="${product.getName()}">product name</span>
+                </a>
+            </p>
+        </th>
+        <hr>
+        <p><a th:href="@{|/admin/manufacturers/${manufacturer.getId}/edit|}">Edit manufacturer</a></p>
+        <p><a th:href="@{|/admin/manufacturers/${manufacturer.getId}/delete|}">Delete manufacturer</a></p>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration page</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
+</head>
+<body>
+<header th:replace="~{_fragments :: header}"></header>
+<section>
+    <div class="container">
+        <form class="col g-3" method="post" th:action="@{/auth/register}" th:object="${user}">
+            <div class="col-md-4">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" type="text" id="username" name="username" placeholder="Username" th:field="*{username}">
+                <label class="form-label text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</label>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control" type="email" id="email" name="email" placeholder="email@example.com" th:field="*{email}">
+                <label class="form-label text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</label>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" type="password" id="password" name="password" placeholder="Password" th:field="*{password}">
+                <label class="form-label text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</label>
+            </div>
+            <div class="col-md-4 mt-3">
+                <input class="btn btn-primary w-100" type="submit" value="Register">
+            </div>
+        </form>
+        <hr>
+        <div>
+            <p><a th:href="@{/auth/login}">Back to login page</a></p>
+        </div>
+    </div>
+</section>
+</body>
+</html>

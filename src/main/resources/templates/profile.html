@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
+</head>
+<body>
+<header th:replace="~{_fragments :: header}"></header>
+<section>
+    <div class="container">
+        <p>Username: <span th:text="${user.username}"></span></p>
+        <p>Email: <span th:text="${user.email}"></span></p>
+        <p>Date joined: <span th:text="${user.dateJoined}"></span></p>
+        <p>Authorities: <span th:text="${user.authorities}"></span></p>
+        <p>Account non-locked: <span th:text="${user.accountNonLocked}"></span></p>
+        <p>Account non-expired: <span th:text="${user.accountNonExpired}"></span></p>
+        <p>Credentials non-expired: <span th:text="${user.credentialsNonExpired}"></span></p>
+        <p>Enabled: <span th:text="${user.enabled}"></span></p>
+    </div>
+</section>
+<hr>
+<section>
+    <div class="container">
+        <form class="col g-3" method="POST" th:action="@{/auth/logout}">
+            <div class="col-md-4 mt-3">
+                <input class="btn btn-primary w-100" type="submit" value="Logout">
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>

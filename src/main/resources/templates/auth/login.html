@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
+</head>
+<body>
+<header th:replace="~{_fragments :: header}"></header>
+<section>
+    <div class="container">
+        <form class="col g-3" name="f" method="post" th:action="@{/process_login}">
+            <div class="col-md-4">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" type="text" id="username" name="username" placeholder="Username">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" type="password" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="col-md-4 mt-3">
+                <input class="btn btn-primary w-100" type="submit" value="Login">
+            </div>
+
+            <p th:if="${param.error}" style="color: red">Invalid username or password!</p>
+            <p th:if="${param.registered}" style="color: green">You created new account! Now you can log in.</p>
+            <p th:if="${param.logout}" style="color: orange">You logged out. Log in to continue.</p>
+        </form>
+        <hr>
+        <div>
+            <p><a th:href="@{/auth/register}">Register</a></p>
+        </div>
+    </div>
+</section>
+</body>
+</html>

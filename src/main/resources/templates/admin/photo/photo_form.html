@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo form</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
+</head>
+<body th:with="
+    method=(${isNew} ? 'post' : 'patch'),
+    actionCreate='/admin/photos',
+    actionUpdate=('/admin/photos/' + ${photo.id}),
+    actionUrl=(${isNew} ? ${actionCreate} : ${actionUpdate})
+">
+
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2 th:text="${isNew} ? 'New photo' : ${photo.imageName}"></h2>
+        <form class="col g-3" th:action="@{${actionUrl}}" th:object="${photo}"
+              th:method="@{${method}}" enctype="multipart/form-data">
+            <div class="col-md-4">
+                <label class="form-label" for="name">Name:</label>
+                <input class="form-control" type="text" id="name" th:field="*{imageName}">
+                <label class="form-label text-danger" for="name" th:if="${#fields.hasErrors('imageName')}"
+                       th:errors="*{imageName}"></label>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label" for="file"></label>
+                <input class="form-control" id="file" type="file" name="file">
+                <p th:text="${fileError}"></p>
+            </div>
+            <div class="col-md-4 mt-3">
+                <input class="btn btn-primary w-100" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manufacturer form</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
+</head>
+<body th:with="
+    method=(${isNew} ? 'post' : 'patch'),
+    actionCreate='/admin/manufacturers',
+    actionUpdate=('/admin/manufacturers/' + ${manufacturer.id}),
+    actionUrl=(${isNew} ? ${actionCreate} : ${actionUpdate})
+">
+
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2 th:text="${isNew} ? 'New manufacturer' : ${manufacturer.name}"></h2>
+        <form class="col g-3" th:action="@{${actionUrl}}" th:object="${manufacturer}" th:method="@{${method}}">
+            <div class="col-md-4">
+                <label class="form-label" for="name">Name:</label>
+                <input class="form-control" type="text" id="name" th:field="*{name}">
+                <label class="form-label text-danger" for="name" th:if="${#fields.hasErrors('name')}"
+                       th:errors="*{name}"></label>
+            </div>
+            <div class="col-md-4 mt-3">
+                <input class="btn btn-primary w-100" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</section>
+
+</body>
+</html>
