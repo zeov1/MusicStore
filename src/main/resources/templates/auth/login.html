@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Login page</title>
     <link th:replace="~{_fragments::#bootstrap_link}"/>
+    <script src="https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js"></script>
 </head>
 <body>
 <header th:replace="~{_fragments :: header}"></header>
@@ -26,6 +27,9 @@
             <p th:if="${param.registered}" style="color: green">You created new account! Now you can log in.</p>
             <p th:if="${param.logout}" style="color: orange">You logged out. Log in to continue.</p>
         </form>
+        <hr>
+        <p><a href="/oauth2/authorization/yandex">Sign in with Yandex</a></p>
+        <p><a href="/oauth2/authorization/google">Sign in with Google</a></p>
         <hr>
         <div>
             <p><a th:href="@{/auth/register}">Register</a></p>

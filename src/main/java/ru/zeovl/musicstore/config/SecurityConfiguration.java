@@ -24,14 +24,17 @@ public class SecurityConfiguration {
                 .csrf(withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                "/oauth2",
+                                "/oauth2/**",
                                 "/auth/login",
+                                "/auth/login/**",
                                 "/auth/register",
                                 "/error",
                                 "/logo.png",
-                                "favicon.ico"
+                                "/favicon.ico"
                         ).permitAll()
                         .requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
-                        .anyRequest().hasAnyRole("USER", "ADMIN")
+                        .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
                         .loginPage("/auth/login")
@@ -44,6 +47,12 @@ public class SecurityConfiguration {
                         .invalidateHttpSession(true)
                         .logoutUrl("/auth/logout")
                         .logoutSuccessUrl("/auth/login?logout")
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/auth/login")
+                        .defaultSuccessUrl("/", true)
+                        .failureUrl("/auth/login?error")
+                        .loginProcessingUrl("/auth/login/oauth2/code/*")
                 );
         return http.build();
     }
