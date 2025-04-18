@@ -2,6 +2,10 @@ server:
     port: 5556
 
 spring:
+    mvc:
+        hiddenmethod:
+            filter:
+                enabled: true
     application:
         name: MusicStore
     datasource:
@@ -32,12 +36,12 @@ spring:
                         redirect-uri: "{baseUrl}/auth/login/oauth2/code/{registrationId}"
                         authorizationGrantType: authorization_code
                         clientName: Yandex
-#                    github:
-#                        # client-id: set in IntelliJ configuration
-#                        # client-secret: set in IntelliJ configuration
-#                        redirect-uri: "{baseUrl}/auth/login/oauth2/code/{registrationId}"
-#                        scope:
-#                            - user:email
+                #                    github:
+                #                        # client-id: set in IntelliJ configuration
+                #                        # client-secret: set in IntelliJ configuration
+                #                        redirect-uri: "{baseUrl}/auth/login/oauth2/code/{registrationId}"
+                #                        scope:
+                #                            - user:email
                 provider:
                     google:
                         authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
