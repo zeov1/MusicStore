@@ -1,12 +1,30 @@
-<link id="bootstrap_link" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link id="bootstrap_link" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous">
 
 <header class="p-3 mb-3 bg-light text-dark">
     <div class="container">
         <div class="flex-md-row d-flex justify-content-lg-start">
-            <div style="height: 80px" class="px-4">
-                <img class="img-fluid rounded" style="width: 100%; height: 100%" th:src="@{/logo.png}" alt="logo">
+
+            <div style="display: flex; align-items: center; gap: 10px; font-size: larger">
+                <a style="text-decoration: none;" th:href="@{/}">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="height: 1lh;">
+                            <img class="img-fluid rounded" style="height: 100%; width: auto;" th:src="@{/logo.png}"
+                                 alt="logo">
+                        </div>
+                        <span style="text-decoration: none"><b>Music Store</b></span>
+                    </div>
+                </a>
+                <span style="border-left: 1px solid #ccc; height: 1em; margin: 0 10px;"></span>
+                <a href="https://github.com/zeov1/MusicStore" style="text-decoration: none; color: inherit;"
+                   target="_blank">GitHub</a>
+                <span th:if="${#authorization.expr('isAuthenticated()')}"
+                      style="border-left: 1px solid #ccc; height: 1em; margin: 0 10px;"></span>
+                <a th:if="${#authorization.expr('isAuthenticated()')}" th:href="@{/profile}"
+                   style="text-decoration: none; color: inherit;">Profile</a>
             </div>
-            <h1><a th:href="@{/}">Music Store</a></h1>
+
         </div>
         <hr>
     </div>
