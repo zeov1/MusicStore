@@ -2,6 +2,7 @@ package ru.zeovl.musicstore.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +32,10 @@ public class PhotoService {
 
     public List<Photo> findAll() {
         return photoRepository.findAll();
+    }
+
+    public List<Photo> findAllOrderedById() {
+        return photoRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public Photo findById(int id) {

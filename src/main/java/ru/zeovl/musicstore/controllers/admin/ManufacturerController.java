@@ -54,7 +54,7 @@ public class ManufacturerController {
 
     @GetMapping("")
     String getManufacturersList(Model model) {
-        model.addAttribute("list", manufacturerService.findAll());
+        model.addAttribute("list", manufacturerService.findAllOrderedById());
         return "admin/manufacturer/manufacturers_list";
     }
 

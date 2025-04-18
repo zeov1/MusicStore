@@ -34,9 +34,9 @@ public class ProductController {
     }
 
     private void prepareModel(Model model) {
-        model.addAttribute("manufacturers", manufacturerService.findAll());
-        model.addAttribute("productTypes", productTypeService.findAll());
-        model.addAttribute("photos", photoService.findAll());
+        model.addAttribute("manufacturers", manufacturerService.findAllOrderedById());
+        model.addAttribute("productTypes", productTypeService.findAllOrderedById());
+        model.addAttribute("photos", photoService.findAllOrderedById());
     }
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,7 +71,7 @@ public class ProductController {
 
     @GetMapping("")
     String getProductsList(Model model) {
-        model.addAttribute("list", productService.findAll());
+        model.addAttribute("list", productService.findAllOrderedByID());
         return "admin/product/products_list";
     }
 

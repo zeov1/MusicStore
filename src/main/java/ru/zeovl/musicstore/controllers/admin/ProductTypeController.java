@@ -54,7 +54,7 @@ public class ProductTypeController {
 
     @GetMapping("")
     String getProductTypesList(Model model) {
-        model.addAttribute("list", productTypeService.findAll());
+        model.addAttribute("list", productTypeService.findAllOrderedById());
         return "admin/product_type/product_types_list";
     }
 

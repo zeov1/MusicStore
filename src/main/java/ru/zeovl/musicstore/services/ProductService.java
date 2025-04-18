@@ -1,6 +1,7 @@
 package ru.zeovl.musicstore.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.zeovl.musicstore.models.Manufacturer;
@@ -24,6 +25,10 @@ public class ProductService {
 
     public List<Product> findAll() {
         return productRepository.findAll();
+    }
+
+    public List<Product> findAllOrderedByID() {
+        return productRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public Product findById(int id) {

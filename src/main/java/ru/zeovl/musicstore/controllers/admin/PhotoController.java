@@ -58,7 +58,7 @@ public class PhotoController {
 
     @GetMapping("")
     String getPhotosList(Model model) {
-        model.addAttribute("list", photoService.findAll());
+        model.addAttribute("list", photoService.findAllOrderedById());
         return "admin/photo/photos_list";
     }
 

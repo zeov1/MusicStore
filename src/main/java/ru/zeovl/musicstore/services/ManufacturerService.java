@@ -1,6 +1,7 @@
 package ru.zeovl.musicstore.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.zeovl.musicstore.models.Manufacturer;
@@ -19,13 +20,12 @@ public class ManufacturerService {
         this.manufacturerRepository = manufacturerRepository;
     }
 
-    public void testMethod() {
-        System.out.println("Entering transaction now!");
-        System.out.println("Exiting transaction now!");
-    }
-
     public List<Manufacturer> findAll() {
         return manufacturerRepository.findAll();
+    }
+
+    public List<Manufacturer> findAllOrderedById() {
+        return manufacturerRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public Manufacturer findById(int id) {
