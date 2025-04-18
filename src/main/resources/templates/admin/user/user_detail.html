@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.username}">Title</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
+</head>
+<body>
+
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2 th:text="${user.username}"></h2>
+        <p>Email: <span th:text="${user.email}"></span></p>
+        <p>Date joined: <span th:text="${user.dateJoined}"></span></p>
+        <p>Role: <span th:text="${user.role}"></span></p>
+        <p>Enabled: <span th:text="${user.enabled}"></span></p>
+        <hr>
+        <p><a th:href="@{|/admin/users/${user.getId}/edit|}">Edit user</a></p>
+        <p><a th:href="@{|/admin/users/${user.getId}/delete|}">Delete user</a></p>
+    </div>
+</section>
+
+</body>
+</html>

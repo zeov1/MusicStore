@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User form</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
+</head>
+<body th:with="
+    method=(${isNew} ? 'post' : 'patch'),
+    actionCreate='/admin/users',
+    actionUpdate=('/admin/users/' + ${user.id}),
+    actionUrl=(${isNew} ? ${actionCreate} : ${actionUpdate})
+">
+
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2 th:text="${isNew} ? 'New user' : ${user.username}"></h2>
+        <form class="col g-3" th:action="@{${actionUrl}}" th:object="${user}" th:method="@{${method}}">
+            <div class="col-md-4">
+                <label class="form-label" for="username">Username:</label>
+                <input class="form-control" type="text" id="username" th:field="*{username}">
+                <label class="form-label text-danger" for="username" th:if="${#fields.hasErrors('username')}"
+                       th:errors="*{username}"></label>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label" for="email">Email:</label>
+                <input class="form-control" type="email" id="email" th:field="*{email}">
+                <label class="form-label text-danger" for="email" th:if="${#fields.hasErrors('email')}"
+                       th:errors="*{email}"></label>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label" for="password">Password:</label>
+                <input class="form-control" type="password" id="password" th:field="*{password}">
+                <label class="form-label text-danger" for="password" th:if="${#fields.hasErrors('password')}"
+                       th:errors="*{password}"></label>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label" for="enabled">Enabled:</label>
+                <input class="form-check" type="checkbox" checked id="enabled" th:field="*{enabled}">
+                <label class="form-label text-danger" for="enabled" th:if="${#fields.hasErrors('enabled')}"
+                       th:errors="*{enabled}"></label>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label" for="role">Role:</label>
+                <input class="form-control" type="text" id="role" value="ROLE_USER" th:field="*{role}">
+                <label class="form-label text-danger" for="role" th:if="${#fields.hasErrors('role')}"
+                       th:errors="*{role}"></label>
+            </div>
+            <div class="col-md-4 mt-3">
+                <input class="btn btn-primary w-100" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

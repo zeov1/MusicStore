@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link th:replace="~{_fragments::#bootstrap_link}"/>
+</head>
+<body>
+
+<header th:replace="~{_fragments :: header}"></header>
+
+<section>
+    <div class="container">
+        <h2>Users</h2>
+        <p th:each="el: ${list}">
+            <a th:href="@{|/admin/users/${el.id}|}">
+                <span th:text="${el.id}"></span>.
+                <span th:text="${el.username}"></span>
+            </a>
+        </p>
+        <hr>
+        <a th:href="@{/admin/users/new}">New user</a>
+    </div>
+</section>
+
+</body>
+</html>
