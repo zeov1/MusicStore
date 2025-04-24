@@ -1,5 +1,6 @@
 package ru.zeovl.musicstore.services;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class RegisterService {
     }
 
     @Transactional
-    public void register(User user) {
+    public void register(@Valid User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

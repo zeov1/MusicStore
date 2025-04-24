@@ -9,7 +9,7 @@
 <header th:replace="~{_fragments :: header}"></header>
 <section>
     <div class="container">
-        <form class="col g-3" method="post" th:action="@{/auth/register}" th:object="${user}">
+        <form class="col g-3" method="post" th:action="@{/auth/register}" th:object="${userDTO}">
             <div class="col-md-4">
                 <label class="form-label" for="username">Username</label>
                 <input class="form-control" type="text" id="username" name="username" placeholder="Username"
@@ -26,10 +26,16 @@
             </div>
             <div class="col-md-4">
                 <label class="form-label" for="password">Password</label>
-                <input class="form-control" type="password" id="password" name="password" placeholder="Password"
-                       th:field="*{password}">
-                <label class="form-label text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
-                    error</label>
+                <input class="form-control" type="password" id="password" th:field="*{password}" placeholder="Password">
+                <label class="form-label text-danger" for="password" th:if="${#fields.hasErrors('password')}"
+                       th:errors="*{password}"></label>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label" for="password2">Confirm password</label>
+                <input class="form-control" type="password" id="password2" th:field="*{password2}"
+                       placeholder="Confirm password">
+                <label class="form-label text-danger" for="password2" th:if="${#fields.hasErrors('password2')}"
+                       th:errors="*{password2}"></label>
             </div>
             <div class="col-md-4 mt-3">
                 <input class="btn btn-primary w-100" type="submit" value="Register">
